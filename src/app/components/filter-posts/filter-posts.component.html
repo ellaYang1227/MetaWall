@@ -1,0 +1,18 @@
+<!-- 搜尋 -->
+<div class="row g-3">
+  <div class="col-md-4">
+    <select class="form-select" aria-label="貼文排序" [(ngModel)]="filter.sort" (ngModelChange)="getFilterData()">
+      <option [value]="sortOption.value" *ngFor="let sortOption of sortOptions">{{ sortOption.name }}</option>
+    </select>
+  </div>
+  <div class="col-md">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="搜尋貼文" aria-label="搜尋貼文" [(ngModel)]="filter.keyword"
+        (keyup.enter)="getFilterData()">
+      <button type="button" class="btn btn-primary" (click)="getFilterData()"
+        [disabled]="initFilter.keyword === filter.keyword">
+        <fa-icon [icon]="['fas', 'magnifying-glass']" size="lg"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

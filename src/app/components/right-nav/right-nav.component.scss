@@ -1,0 +1,18 @@
+@import "src/styles/_bootstrap-custom-variables";
+
+.nav-link {
+  &:hover {
+    .rounded-circle-icon {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  .rounded-circle-icon {
+    background-color: $light-primary;
+  }
+}
+
+.mobile-nav-width {
+  width: calc(100vw - 1rem);
+}

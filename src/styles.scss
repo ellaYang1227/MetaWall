@@ -1,1 +1,253 @@
-/* You can add global styles to this file, and also import other style files */
+@import "src/styles/_font";
+@import "src/styles/_bootstrap-custom-variables";
+@import "~bootstrap/scss/bootstrap";
+
+/*
+* ==========================================================================
+* 共用
+* ==========================================================================
+*/
+
+// html{
+//   font-size: $font-size-base * 0.75;
+
+//   @include media-breakpoint-up(sm) {
+//       font-size: $font-size-base * 0.875;
+//   }
+
+//   @include media-breakpoint-up(md) {
+//       font-size: $font-size-base;
+//   }
+// }
+
+body {
+  background-image: $body-bg-image;
+}
+
+// 按鈕
+.input-group {
+  button[class*="btn-"],
+  a[class*="btn-"] {
+    box-shadow: $input-group-box-shadow;
+    border-radius: $input-group-border-radius;
+
+    &:hover {
+      box-shadow: $input-group-box-shadow;
+      border-radius: $input-group-border-radius;
+    }
+  }
+}
+
+button[class*="btn-"]:not(.btn-link),
+a[class*="btn-"] {
+  box-shadow: $btn-box-shadow;
+  border-color: $border-color;
+
+  &:hover {
+    color: $black;
+    background-color: $warning;
+  }
+
+  &:hover,
+  &:focus,
+  &:active:focus {
+    border-color: $border-color;
+    box-shadow: $btn-box-shadow;
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: $btn-disabled-bg-color;
+    box-shadow: $btn-disabled-box-shadow;
+    border-color: $btn-disabled-border-color;
+  }
+}
+
+// 連結顏色
+a[class*="link-"] {
+  &:hover {
+    color: $primary;
+  }
+}
+
+// 圓形尺寸
+$circleSizes: "9", "30", "45", "48", "50";
+.rounded-circle-size- {
+  @each $circleSize in $circleSizes {
+    &#{$circleSize} {
+      width: #{$circleSize} + px;
+      height: #{$circleSize} + px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.card {
+  box-shadow: $card-box-shadow;
+}
+
+// 佔位符 (Placeholders)
+span.placeholder {
+  background-color: $gray-500;
+  border-radius: 50px;
+}
+
+.background-color
+
+// box-shadow
+.left-box-shadow {
+  box-shadow: -5px 5px 0 0 $white, -5px 5px 0 2px $black;
+}
+
+// textarea
+textarea {
+  resize: none;
+}
+
+/*
+* ==========================================================================
+* user 下拉選單
+* ==========================================================================
+*/
+
+.ngbDropdown-user {
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      > div.dropdown-menu {
+        display: block;
+        inset: 0px 0px auto auto;
+        margin: 0px;
+        transform: translate(0px, 34px);
+      }
+    }
+  }
+}
+
+/*
+* ==========================================================================
+* sweetalert2
+* ==========================================================================
+*/
+
+// 登入失敗 popup
+.swal2-container {
+  &.login-error {
+    z-index: 999999 !important;
+  }
+}
+// popup
+.swal2-popup:not(.swal2-toast) {
+  .swal2-icon {
+    margin-bottom: 1em;
+  }
+
+  &.swal2-icon-success {
+    .swal2-title {
+      color: $success !important;
+    }
+  }
+
+  &.swal2-icon-error {
+    .swal2-title {
+      color: $danger !important;
+    }
+  }
+
+  &.swal2-icon-warning {
+    .swal2-title {
+      color: $warning !important;
+    }
+  }
+
+  .swal2-title {
+    color: $dark !important;
+    margin-bottom: 0;
+  }
+
+  .swal2-content,
+  .swal2-html-container {
+    color: $body-color !important;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .swal2-close {
+    &:hover {
+      color: $secondary !important;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+
+  label {
+    color: $body-color;
+    font-weight: 500;
+  }
+
+  // checkbox && radio
+  .swal2-radio,
+  .swal2-checkbox {
+    flex-direction: column;
+    align-items: flex-start !important;
+    label {
+      cursor: pointer;
+    }
+  }
+}
+
+// toast
+.swal2-toast {
+  &.swal2-icon-success {
+    .swal2-title {
+      color: $success !important;
+    }
+  }
+
+  &.swal2-icon-error {
+    .swal2-title {
+      color: $danger !important;
+    }
+  }
+
+  .swal2-title {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+
+    * {
+      color: $body-color !important;
+      display: block;
+      font-size: 95%;
+    }
+  }
+}
+
+// 共用
+.swal2-timer-progress-bar {
+  background: rgba($dark, 0.15) !important;
+}
+
+.swal2-styled {
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.swal2-icon {
+  &.swal2-warning {
+    border-color: $warning !important;
+    color: $warning !important;
+  }
+}
+
+.swal2-actions {
+  button {
+    margin-left: 0.125rem;
+    margin-right: 0.125rem;
+  }
+}

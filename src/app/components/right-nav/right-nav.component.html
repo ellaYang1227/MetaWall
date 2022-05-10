@@ -1,0 +1,27 @@
+<!-- md 以上顯示 -->
+<nav class="d-none d-md-block nav flex-column bg-white px-5 py-6 border position-sticky" #desktopNav
+  [style.top.px]="desktopNavOffsetTop">
+  <a class="btn btn-primary w-100" [routerLink]="getAddPostLink()" routerLinkActive="disabled">張貼動態</a>
+  <a class="nav-link px-2 pt-5 pb-0 d-flex align-items-center" href="#">
+    <img [src]="user.image" class="rounded-circle-size-50 border me-4"><strong>{{ user.name }}</strong>
+  </a>
+  <ng-template ngFor let-nav [ngForOf]="navs">
+    <a class="nav-link px-2 pt-5 pb-0 d-flex align-items-center" [routerLink]="nav.link"
+      *ngIf="nav.name !== '首頁' && nav.name !== '張貼動態'">
+      <div
+        class="rounded-circle rounded-circle-icon rounded-circle-size-50 fs-5 border d-flex justify-content-center align-items-center me-4">
+        <fa-icon [icon]="nav.icon" [fixedWidth]="true"></fa-icon>
+      </div><strong>{{ nav.name }}</strong>
+    </a>
+  </ng-template>
+
+</nav>
+<!-- sm 以下顯示 -->
+<nav
+  class="d-md-none nav nav-pills nav-justified justify-content-center border border-3 rounded-pill bg-light position-fixed mobile-nav-width start-50 bottom-0 translate-middle">
+  <a class="nav-link mx-3 my-1 flex-grow-0 rounded-circle rounded-circle-icon rounded-circle-size-48 fs-5 border border-3 d-flex justify-content-center align-items-center"
+    [ngClass]="nav.name === '張貼動態' ? 'bg-primary text-white' : 'bg-white'" *ngFor="let nav of navs"
+    [routerLink]="nav.link">
+    <fa-icon [icon]="nav.icon" [fixedWidth]="true"></fa-icon>
+  </a>
+</nav>
