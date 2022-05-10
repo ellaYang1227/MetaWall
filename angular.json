@@ -110,7 +110,9 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "/MetaWall/"
+            "baseHref": "/MetaWall/",
+            "name": "ellaYang1227",
+            "email": "yanzi19841227@gmail.com"
           }
         }
       }
