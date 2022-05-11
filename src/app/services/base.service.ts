@@ -47,21 +47,23 @@ export class BaseService {
     if (data.success) {
       return data.data;
     } else {
-
       const swal: any = {};
-      const error = data.error.toLowerCase();
+      const error = (data.type || data.error).toLowerCase();
       if (error.indexOf('token') > -1) {
         swal.title = '系統訊息';
-        swal.error = '連線逾時，請重新登入';
+        swal.msg = '連線逾時，請重新登入';
         swal.logout = true;
       } else if (error.indexOf('wrong auth') > -1) {
         console.error('err');
         swal.title = '系統訊息';
-        swal.error = '非本人帳號，無法執行或讀取';
+        swal.msg = '非本人帳號，無法執行或讀取';
         swal.back = true;
+      } else if (error.indexOf('error') > -1) {
+        swal.title = '錯誤訊息';
+        swal.msg = '資料庫連線異常，請稍後再試';
       } else {
         swal.title = '不明錯誤';
-        swal.error = 'API Error, Message:' + data.error;
+        swal.msg = 'API Error, Message:' + data.error;
         swal.back = true;
         console.error('API ERROR, Message：' + data.error);
       }
@@ -81,8 +83,7 @@ export class BaseService {
             cancelButton: 'btn btn-outline-secondary'
           },
           buttonsStyling: false,
-          timer: swal.title !== '不明錯誤' ? 5000 : null,
-          timerProgressBar: swal.title !== '不明錯誤' ? true : false
+          timer: swal.title !== '不明錯誤' ? 5000 : null
         }).then((result: any) => {
           if (result.value || swal.back) {
             window.history.back();

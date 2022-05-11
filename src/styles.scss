@@ -8,17 +8,17 @@
 * ==========================================================================
 */
 
-// html{
-//   font-size: $font-size-base * 0.75;
+html {
+  font-size: $font-size-base * 0.75;
 
-//   @include media-breakpoint-up(sm) {
-//       font-size: $font-size-base * 0.875;
-//   }
+  @include media-breakpoint-up(sm) {
+    font-size: $font-size-base * 0.875;
+  }
 
-//   @include media-breakpoint-up(md) {
-//       font-size: $font-size-base;
-//   }
-// }
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-base;
+  }
+}
 
 body {
   background-image: $body-bg-image;
@@ -28,11 +28,11 @@ body {
 .input-group {
   button[class*="btn-"],
   a[class*="btn-"] {
-    box-shadow: $input-group-box-shadow;
+    box-shadow: $input-group-box-shadow !important;
     border-radius: $input-group-border-radius;
 
     &:hover {
-      box-shadow: $input-group-box-shadow;
+      box-shadow: $input-group-box-shadow !important;
       border-radius: $input-group-border-radius;
     }
   }
@@ -162,6 +162,7 @@ textarea {
   .swal2-title {
     color: $dark !important;
     margin-bottom: 0;
+    padding-top: 0;
   }
 
   .swal2-content,
