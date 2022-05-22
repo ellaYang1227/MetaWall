@@ -24,11 +24,7 @@ export class BaseService {
 
     if (access_token) {
       let header: HttpHeaders;
-      header = new HttpHeaders().set('Authorization', access_token);
-      if (!environment.production) {
-        header = new HttpHeaders()
-          .set('Authorization', `Bearer ${access_token}`);
-      }
+      header = new HttpHeaders().set('Authorization', `Bearer ${access_token}`);
       return {
         headers: header
       };

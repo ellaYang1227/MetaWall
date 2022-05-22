@@ -1,7 +1,7 @@
 <form #validateForm="ngForm" (ngSubmit)="submitForm()" *ngIf="data">
   <div class="mb-4 text-center">
     <div class="text-center">
-      <img [src]="data.photo ? data.photo : '/assets/images/user_default.png'" class="photo-size border rounded-circle"
+      <img [src]="data.photo ? data.photo : 'assets/images/user_default.png'" class="photo-size border rounded-circle"
         alt="使用者大頭照">
     </div>
     <label class="btn btn-dark px-6 py-1 mt-4 rounded-0"><input type="file" accept=".jpg, .png" name="file"

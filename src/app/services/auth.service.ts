@@ -17,10 +17,10 @@ export class AuthService {
     if (this.cookie_access_token) {
       if (this.access_token !== this.cookie_access_token) { this.access_token = this.cookie_access_token }
       const user = this.cryptoJsService.decrypt(this.cookie_access_token);
-      if (!user.photo) { user.photo = '/assets/images/user_default.png' }
+      if (!user.photo) { user.photo = 'assets/images/user_default.png' }
       return user;
     } else {
-      if (this.access_token) { window.location.href = '/signIn' }
+      if (this.access_token) { location.reload() }
       return undefined;
     }
   }
