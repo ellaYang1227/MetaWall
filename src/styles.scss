@@ -92,8 +92,6 @@ span.placeholder {
   border-radius: 50px;
 }
 
-.background-color
-
 // box-shadow
 .left-box-shadow {
   box-shadow: -5px 5px 0 0 $white, -5px 5px 0 2px $black;
@@ -104,6 +102,24 @@ textarea {
   resize: none;
 }
 
+.nav-tabs {
+  border-bottom-width: 0;
+
+  .nav-link {
+    background-color: $white;
+    border-color: $nav-tabs-border-color;
+
+    &:hover {
+      color: $nav-tabs-link-active-color;
+      background-color: $nav-tabs-border-color;
+    }
+  }
+}
+
+.form-check-input[type="radio"],
+label.form-check-label {
+  cursor: pointer;
+}
 /*
 * ==========================================================================
 * user 下拉選單
@@ -250,5 +266,17 @@ textarea {
   button {
     margin-left: 0.125rem;
     margin-right: 0.125rem;
+  }
+}
+
+/*
+* ==========================================================================
+* sign
+* ==========================================================================
+*/
+app-sign {
+  .sign-card {
+    padding: 4.375rem 3rem;
+    box-shadow: -8px 8px 0 0 $gray-300;
   }
 }

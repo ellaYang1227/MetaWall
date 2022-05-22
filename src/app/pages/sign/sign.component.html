@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="sign-card border bg-light">
+    <div class="row gx-7 align-items-center">
+      <div class="col-md-6">
+        <img src="/assets/images/metaWall-img.svg" [alt]="name + ' 形象圖'" class="img-fluid">
+      </div>
+      <div class="col-md-6 text-center">
+        <h1 class="font-paytoneOne text-primary display-3 mb-0">{{ name }}</h1>
+        <h4 class="font-helveticaNeue fw-bold">{{ subTitle }}</h4>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

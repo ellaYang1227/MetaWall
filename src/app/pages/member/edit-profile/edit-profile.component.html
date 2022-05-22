@@ -1,0 +1,21 @@
+<app-title [title]="title"></app-title>
+<ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" (navChange)="onNavChange($event)" class="nav-tabs mt-6 px-4">
+  <li [ngbNavItem]="'name'">
+    <a ngbNavLink>{{ tabs.name }}</a>
+    <ng-template ngbNavContent>
+      <app-edit-name></app-edit-name>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="'updatePassword'">
+    <a ngbNavLink>{{ tabs.updatePassword }}</a>
+    <ng-template ngbNavContent>
+      <app-update-password [title]="tabs.updatePassword"></app-update-password>
+    </ng-template>
+  </li>
+</ul>
+<div class="border p-6 bg-white rounded">
+  <div class="row justify-content-center">
+    <div [ngbNavOutlet]="nav" class="col-9">
+    </div>
+  </div>
+</div>

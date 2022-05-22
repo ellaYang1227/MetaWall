@@ -29,7 +29,7 @@ export class RightNavComponent implements OnInit {
 
   @ViewChild('desktopNav', { static: false }) desktopNav!: ElementRef;
 
-  public get user(): userInfo {
+  public get user(): userInfo | undefined {
     return this.authService.user;
   }
 

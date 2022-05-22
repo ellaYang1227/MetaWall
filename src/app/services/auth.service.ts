@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-
+import { CryptoJsService } from '@models/crypto-js-service';
 export interface userInfo {
   id: string;
   name: string;
-  image: string;
+  photo: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  access_token!: string;
 
-  public get user(): userInfo {
-    return {
-      id: '627794b8e6e179ebbf1f6352',
-      name: '邊緣小杰',
-      image: 'assets/images/users/user.png',
+  public get user(): userInfo | undefined {
+    if (this.cookie_access_token) {
+      if (this.access_token !== this.cookie_access_token) { this.access_token = this.cookie_access_token }
+      const user = this.cryptoJsService.decrypt(this.cookie_access_token);
+      if (!user.photo) { user.photo = '/assets/images/user_default.png' }
+      return user;
+    } else {
+      if (this.access_token) { window.location.href = '/signIn' }
+      return undefined;
     }
   }
 
-  goToUrl!: string;
+  redirectUrl!: string;
 
   // 取得 access_token
   public get cookie_access_token(): string {
@@ -29,7 +34,9 @@ export class AuthService {
     return access_token ? access_token.replace(searchStr, '') : '';
   }
 
-  constructor() { }
+  constructor(
+    private cryptoJsService: CryptoJsService
+  ) { }
 
   logout(): void {
     // 刪除 cookie
@@ -44,5 +51,12 @@ export class AuthService {
     let cookie = `access_token=${access_token}; expires=${exp.toUTCString()}; path=/; SameSite=Strict;`;
     if (environment.production) { cookie += `Secure` };
     document.cookie = cookie;
+
+    if (access_token) {
+      localStorage.setItem('access_token', access_token);
+    } else {
+      localStorage.removeItem('access_token');
+    }
+
   }
 }

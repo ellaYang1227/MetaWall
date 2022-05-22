@@ -1,0 +1,24 @@
+<form #validateForm="ngForm" (ngSubmit)="submitForm()">
+  <div class="mb-4">
+    <input [type]="formsSchema.email.type" class="form-control" [placeholder]="formsSchema.email.name" #email="ngModel"
+      name="email" [(ngModel)]="data.email" email [required]="formsSchema.email.validates.isRequired">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback text-start"
+      [class.d-block]="email.errors && (email.errors['required'] || email.errors['email'])">{{
+      formsSchema.email.error }}
+    </div>
+  </div>
+  <div class="mb-4">
+    <input [type]="formsSchema.password.type" class="form-control" [placeholder]="formsSchema.password.name"
+      #password="ngModel" name="password" [(ngModel)]="data.password"
+      [required]="formsSchema.password.validates.isRequired">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback text-start"
+      [class.d-block]="password.errors && password.errors['required']">{{ formsSchema.password.error.default }}
+    </div>
+  </div>
+  <div class="invalid-feedback d-block pt-4" *ngIf="resError">{{ resError }}</div>
+  <div class="d-grid">
+    <button class="btn btn-primary my-4" type="submit" [disabled]="validateForm.invalid">{{ title }}</button>
+    <a class="link-dark font-azeretMono" routerLink="/signUp"
+      [state]="{ email: data.email, password: data.password }">註冊帳號</a>
+  </div>
+</form>

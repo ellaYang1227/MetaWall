@@ -1,17 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom border-3 position-fixed w-100 navbar-height"
-  *ngIf="visible">
+  *ngIf="user">
   <div class="container">
     <a class="navbar-brand font-paytoneOne" routerLink="index">{{ companyName }}</a>
     <ul class="navbar-nav ms-auto">
-      <li ngbDropdown display="dynamic" placement="bottom-end" dropdownClass="ngbDropdown-user" class="nav-item"
-        *ngIf="user">
+      <li ngbDropdown display="dynamic" placement="bottom-end" dropdownClass="ngbDropdown-user" class="nav-item">
         <button type="button" class="userIcon border-0 bg-transparent" id="dropdown-user" ngbDropdownToggle><img
-            [src]="user.image" class="rounded-circle-size-30 border"><strong
+            [src]="user.photo" class="rounded-circle-size-30 border"><strong
             class="border-bottom font-azeretMono px-1 ms-2">Member</strong></button>
         <div ngbDropdownMenu aria-labelledby="dropdown-user">
           <button ngbDropdownItem class="text-center">我的貼文牆</button>
-          <button ngbDropdownItem class="text-center">修改個人資料</button>
-          <button ngbDropdownItem class="text-center">登出</button>
+          <button ngbDropdownItem class="text-center" routerLink="/member/editProfile/name">修改個人資料</button>
+          <button ngbDropdownItem class="text-center" (click)="logout()">登出</button>
         </div>
       </li>
     </ul>

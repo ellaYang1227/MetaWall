@@ -1,15 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '@services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, map, Observable, of } from 'rxjs';
 import { BaseService } from './base.service';
-import { SwalDefaultService } from './swal-default.service';
-
-let swalToast: any;
 
 export interface post {
-  user?: string;
   image: any;
   content: string;
 }
@@ -22,12 +17,9 @@ export class PostService extends BaseService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private authService: AuthService,
-    private swalDefaultService: SwalDefaultService
+    override spinner: NgxSpinnerService
   ) {
-    super();
-    swalToast = this.swalDefaultService.toastDefault;
+    super(spinner);
   }
 
   getPosts(filter: any): Observable<any> {
@@ -39,7 +31,7 @@ export class PostService extends BaseService {
       }
     }
 
-    return this.http.get<any[]>(this.API_ROOT + 'posts' + url)
+    return this.http.get<any[]>(this.API_ROOT + 'posts' + url, this.getHeader())
       .pipe(map(result => this.covertReturn(result)), catchError(error => {
         this.covertReturn(error.error);
         return of(false);
@@ -47,24 +39,9 @@ export class PostService extends BaseService {
   }
 
   addPost(body: post) {
-    body.user = this.authService.user.id;
-    return this.http.post<any>(this.API_ROOT + 'posts', body)
-      .pipe(map(result => {
-        if (result.success) {
-          swalToast.fire({
-            icon: 'success',
-            title: '新增成功'
-          }).then((result: any) => {
-            this.router.navigate(['/index']);
-          });
-        }
-      }), catchError(error => {
-        swalToast.fire({
-          icon: 'error',
-          title: '新增失敗'
-        });
-
-        return of(false);
+    return this.http.post<any>(this.API_ROOT + 'posts', body, this.getHeader())
+      .pipe(map(result => result), catchError(error => {
+        return of(this.covertReturn(error.error));
       }));
   }
 }

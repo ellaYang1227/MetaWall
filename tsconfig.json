@@ -47,6 +47,9 @@
       "@misc/*": [
         "app/misc/*"
       ],
+      "@guard/*": [
+        "app/guard/*"
+      ],
       "@pipes/*": [
         "app/pipes/*"
       ],

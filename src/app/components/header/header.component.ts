@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from '@data/company';
 import { AuthService, userInfo } from '@services/auth.service';
-import { PageService } from '@services/page.service';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,18 +8,19 @@ import { PageService } from '@services/page.service';
 })
 export class HeaderComponent implements OnInit {
   companyName = Company.name;
-  visible!: boolean;
 
-  public get user(): userInfo {
+  public get user(): userInfo | undefined {
     return this.authService.user;
   }
 
   constructor(
-    private authService: AuthService,
-    private pageService: PageService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.pageService.listen('components.header.visible', (isVisible: boolean) => this.visible = isVisible);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { AuthService } from '@services/auth.service';
 import { SwalDefaultService } from '@services/swal-default.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 let swalPopup: any;
 
@@ -12,7 +13,9 @@ let swalPopup: any;
 export class BaseService {
   API_ROOT = environment.api;
 
-  constructor() {
+  constructor(
+    public spinner: NgxSpinnerService
+  ) {
     swalPopup = SwalDefaultService.prototype.popupDefault;
   }
 
@@ -24,8 +27,7 @@ export class BaseService {
       header = new HttpHeaders().set('Authorization', access_token);
       if (!environment.production) {
         header = new HttpHeaders()
-          .set('Authorization', access_token)
-          .set('Debug', '1');
+          .set('Authorization', `Bearer ${access_token}`);
       }
       return {
         headers: header
@@ -47,25 +49,18 @@ export class BaseService {
     if (data.success) {
       return data.data;
     } else {
+      this.spinner.hide();
+
       const swal: any = {};
-      const error = (data.type || data.error).toLowerCase();
-      if (error.indexOf('token') > -1) {
+      const error = (data.type || data.message);
+      if (error.indexOf('未登入') > -1 || error.indexOf('axios') > -1 ||
+        error.indexOf('路由') > -1 || error.indexOf('語法') > -1 || error.indexOf('系統錯誤') > -1) {
         swal.title = '系統訊息';
-        swal.msg = '連線逾時，請重新登入';
-        swal.logout = true;
-      } else if (error.indexOf('wrong auth') > -1) {
-        console.error('err');
-        swal.title = '系統訊息';
-        swal.msg = '非本人帳號，無法執行或讀取';
-        swal.back = true;
-      } else if (error.indexOf('error') > -1) {
-        swal.title = '錯誤訊息';
-        swal.msg = '資料庫連線異常，請稍後再試';
+        swal.msg = data.message;
+        if (error.indexOf('未登入') > -1) { swal.logout = true }
       } else {
-        swal.title = '不明錯誤';
-        swal.msg = 'API Error, Message:' + data.error;
-        swal.back = true;
-        console.error('API ERROR, Message：' + data.error);
+        console.error(data);
+        return data;
       }
 
       if (swal.title || swal.msg) {
@@ -91,7 +86,7 @@ export class BaseService {
 
           if (swal.logout) {
             AuthService.prototype.logout();
-            AuthService.prototype.goToUrl = '/member/login';
+            AuthService.prototype.redirectUrl = window.location.href;
           }
 
           return false;

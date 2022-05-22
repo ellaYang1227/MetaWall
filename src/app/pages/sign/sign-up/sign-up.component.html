@@ -1,0 +1,33 @@
+<form #validateForm="ngForm" (ngSubmit)="submitForm()">
+  <div class="mb-4">
+    <input [type]="formsSchema.name.type" class="form-control" [placeholder]="formsSchema.name.name" #name="ngModel"
+      name="name" [(ngModel)]="data.name" [required]="formsSchema.name.validates.isRequired"
+      [minlength]="formsSchema.name.validates.minlength">
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback text-start"
+      [class.d-block]="name.errors && (name.errors['required'] || name.errors['minlength'])">{{
+      formsSchema.name.error }}</div>
+  </div>
+  <div class="mb-4">
+    <input [type]="formsSchema.email.type" class="form-control" [placeholder]="formsSchema.email.name" #email="ngModel"
+      name="email" [(ngModel)]="data.email" email [required]="formsSchema.email.validates.isRequired">
+    <div *ngIf="email.invalid && (email.dirty || email.touched) || resEmailError" class="invalid-feedback text-start"
+      [class.d-block]="email.errors && (email.errors['required'] || email.errors['email']) || resEmailError">
+      <ng-container *ngIf="email.errors && (email.errors['required'] || email.errors['email'])">{{
+        formsSchema.email.error }}</ng-container>
+      <ng-container *ngIf="resEmailError">{{ resEmailError }}</ng-container>
+    </div>
+  </div>
+  <div class="mb-4">
+    <input [type]="formsSchema.password.type" class="form-control" [placeholder]="formsSchema.password.name"
+      #password="ngModel" name="password" [pattern]="formsSchema.password.validates.pattern" [(ngModel)]="data.password"
+      [required]="formsSchema.password.validates.isRequired" [minlength]="formsSchema.password.validates.minlength">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback text-start"
+      [class.d-block]="password.errors && (password.errors['required'] || password.errors['minlength'] || password.errors['pattern'])">
+      {{ formsSchema.password.error.default }}</div>
+  </div>
+  <div class="d-grid">
+    <button class="btn btn-primary my-4" type="submit" [disabled]="validateForm.invalid">{{ title }}</button>
+    <a class="link-dark font-azeretMono" routerLink="/signIn"
+      [state]="{ email: data.email, password: data.password }">登入</a>
+  </div>
+</form>

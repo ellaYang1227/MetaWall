@@ -1,7 +1,7 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Company } from '@data/company';
-import { PageService } from '@services/page.service';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,20 +9,26 @@ import { PageService } from '@services/page.service';
 })
 export class AppComponent implements OnInit, AfterContentChecked {
   title = Company.name;
-  rightNavVisible!: boolean;
+  show = false;
 
   constructor(
-    private pageService: PageService,
+    private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
+    private spinner: NgxSpinnerService
   ) {
-
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) { this.spinner.show() }
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => this.show = this.router.url.indexOf('sign') > -1 ? false : true, 0);
+      }
+    });
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterContentChecked(): void {
-    this.pageService.listen('components.right-nav.visible', (isVisible: boolean) => this.rightNavVisible = isVisible);
     this.changeDetectorRef.detectChanges();
   }
 }
