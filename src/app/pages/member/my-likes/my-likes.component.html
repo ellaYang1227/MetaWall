@@ -1,0 +1,38 @@
+<app-title [title]="title"></app-title>
+<!-- 載入中 -->
+<div class="card mt-4" *ngIf="isLoading; else notLoading">
+  <div class="card-body p-4">
+    <app-item-user-data-loading></app-item-user-data-loading>
+  </div>
+</div>
+<!-- 按讚 列表 -->
+<ng-template #notLoading>
+  <ng-container *ngIf="myLikes.length; else noMyLikes">
+    <div class="card mt-4" *ngFor="let myLike of myLikes">
+      <div class="card-body p-4">
+        <div class="row align-items-center">
+          <div class="col text-truncate">
+            <app-item-user-data [user]="myLike.user" [createdAt]="myLike.createdAt" createdAtText="發文時間"
+              [userPhotoSize]="40" [noBorder]="true">
+            </app-item-user-data>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-link btn-sm font-NotoSansTC text-decoration-none" type="button"
+              (click)="cancelLike(myLike._id)">
+              <fa-icon [icon]="['far', 'thumbs-up']" size="lg" class="d-block text-primary"></fa-icon>
+              <strong>取消</strong>
+            </button>
+            <a class="btn btn-link btn-sm font-NotoSansTC text-decoration-none" role="button">
+              <fa-icon [icon]="['fas', 'circle-arrow-right']" size="lg" class="d-block"></fa-icon><strong>查看</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noMyLikes>
+    <div class="mt-4">
+      <app-no-data text="目前尚無按讚的貼文，快去看看貼文吧！"></app-no-data>
+    </div>
+  </ng-template>
+</ng-template>

@@ -8,7 +8,7 @@
             [src]="user.photo" class="rounded-circle-size-30 border"><strong
             class="border-bottom font-azeretMono px-1 ms-2">Member</strong></button>
         <div ngbDropdownMenu aria-labelledby="dropdown-user">
-          <button ngbDropdownItem class="text-center">我的貼文牆</button>
+          <a ngbDropdownItem class="text-center" [href]="'user' + user.id">我的貼文牆</a>
           <button ngbDropdownItem class="text-center" routerLink="/member/editProfile/name">修改個人資料</button>
           <button ngbDropdownItem class="text-center" (click)="logout()">登出</button>
         </div>

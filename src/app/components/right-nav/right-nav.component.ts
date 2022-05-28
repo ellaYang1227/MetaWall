@@ -14,11 +14,11 @@ export class RightNavComponent implements OnInit {
   }, {
     name: '追蹤名單',
     icon: ['far', 'bell'],
-    link: ''
+    link: '/member/myTracks'
   }, {
     name: '我按讚的文章',
     icon: ['far', 'thumbs-up'],
-    link: ''
+    link: '/member/myLikes'
   }, {
     name: '張貼動態',
     icon: ['fas', 'plus'],

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { post, PostService } from '@services/post.service';
 import { SwalDefaultService } from '@services/swal-default.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UploadService } from './../../services/upload.service';
 
 let swalToast: any;
 
@@ -18,10 +19,12 @@ export class AddPostComponent implements OnInit {
   };
 
   uploadErrs: string[] = [];
+  isUploading = false;
 
   constructor(
     private router: Router,
     private postService: PostService,
+    private uploadService: UploadService,
     private spinner: NgxSpinnerService,
     private swalDefaultService: SwalDefaultService
   ) {
@@ -43,15 +46,22 @@ export class AddPostComponent implements OnInit {
         this.uploadErrs.push('圖片格式錯誤，僅限 JPG、PNG 圖片');
       }
 
-      // 檔案大小(1mb 以下) - bytes 轉 mb
-      if ((file.size / 1024 / 1024) > 1) {
-        this.uploadErrs.push('圖片檔案過大，僅限 1mb 以下檔案');
+      // 檔案大小(2mb 以下) - bytes 轉 mb
+      if ((file.size / 1024 / 1024) > 2) {
+        this.uploadErrs.push('圖片檔案過大，僅限 2mb 以下檔案');
       }
 
       if (!this.uploadErrs.length) {
-        const fileReader = new FileReader();
-        fileReader.onloadend = () => { this.post.image = fileReader.result }
-        fileReader.readAsDataURL(file);
+        this.isUploading = true;
+        this.uploadService.upload(file).subscribe(res => {
+          if (res.success) {
+            this.post.image = res.data;
+          } else {
+            this.uploadErrs.push(res.message);
+          }
+
+          this.isUploading = false;
+        });
       }
     }
   }

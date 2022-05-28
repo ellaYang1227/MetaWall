@@ -37,10 +37,6 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitForm() {
-
-  }
-
   onNavChange(changeEvent: NgbNavChangeEvent) {
     this.router.navigateByUrl(this.url.replace(this.activeTab, changeEvent.nextId));
   }

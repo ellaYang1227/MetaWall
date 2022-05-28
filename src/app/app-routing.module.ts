@@ -13,6 +13,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('@pages/add-post/add-post.module').then(mod => mod.AddPostModule)
   }, {
+    path: 'user/:id',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@pages/user-posts/user-posts.module').then(mod => mod.UserPostsModule)
+  }, {
     path: 'member',
     canActivate: [AuthGuard],
     loadChildren: () => import('@pages/member/member.module').then(mod => mod.MemberModule)

@@ -28,12 +28,29 @@ export class IndexComponent implements OnInit {
   getPosts(filter: any) {
     this.isLoading = true;
     this.postService.getPosts(filter).subscribe(data => {
+      data.forEach((item: any) => {
+        item.comments = [{
+          "user": {
+            "_id": "628a43c38c9d619c7bbcbbff",
+            "name": "希琳",
+            "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF/wAAGeIJNwAAACJJREFUeJztwTEBAAAAwqD1T20KP6AAAAAAAAAAAAAAAHgZLbQAAWZ0M2QAAAAASUVORK5CYII="
+          },
+          "createdAt": "2022-05-23T11:28:19.714Z",
+          "content": "123真的～我已經準備冬眠了"
+        }, {
+          "user": {
+            "_id": "628a43c38c9d619c7bbcbbff",
+            "name": "希琳",
+            "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF/wAAGeIJNwAAACJJREFUeJztwTEBAAAAwqD1T20KP6AAAAAAAAAAAAAAAHgZLbQAAWZ0M2QAAAAASUVORK5CYII="
+          },
+          "createdAt": "2022-05-23T11:28:19.714Z",
+          "content": "123真的～我已經準備冬眠了"
+        }];
+        item.likes = ["628a43c38c9d619c7bbc88", "628a43c38c9d619c7bbcbbff"];
+      });
+
       this.posts = data;
       setTimeout(() => this.isLoading = false, 1000);
     });
-  }
-
-  trackByFn(index: number, item: any) {
-    return item._id;
   }
 }

@@ -11,16 +11,18 @@ export interface userInfo {
   providedIn: 'root'
 })
 export class AuthService {
+  userDefaultImg = 'assets/images/user_default.png';
   access_token!: string;
 
   public get user(): userInfo | undefined {
     if (this.cookie_access_token) {
       if (this.access_token !== this.cookie_access_token) { this.access_token = this.cookie_access_token }
       const user = this.cryptoJsService.decrypt(this.cookie_access_token);
-      if (!user.photo) { user.photo = 'assets/images/user_default.png' }
+      if (!user.photo) { user.photo = this.userDefaultImg }
       return user;
     } else {
       if (this.access_token) { location.reload() }
+      localStorage.removeItem('access_token');
       return undefined;
     }
   }
@@ -57,6 +59,5 @@ export class AuthService {
     } else {
       localStorage.removeItem('access_token');
     }
-
   }
 }

@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     this.authService.redirectUrl = url;
 
     let signInUrl = '/signIn';
-    if (url) { signInUrl += `?redirectUrl=${url}` }
+    if (url) { signInUrl = `/signIn?redirectUrl=${url}` }
     return this.router.parseUrl(signInUrl);
   }
 

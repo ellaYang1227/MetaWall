@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberComponent } from './member.component';
+import { MyLikesComponent } from './my-likes/my-likes.component';
+import { MyTracksComponent } from './my-tracks/my-tracks.component';
 
 const routes: Routes = [{
   path: '',
@@ -9,6 +11,12 @@ const routes: Routes = [{
   children: [{
     path: 'editProfile/:tab',
     component: EditProfileComponent
+  }, {
+    path: 'myLikes',
+    component: MyLikesComponent
+  }, {
+    path: 'myTracks',
+    component: MyTracksComponent
   }]
 }];
 

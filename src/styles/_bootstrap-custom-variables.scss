@@ -132,7 +132,7 @@ $grid-breakpoints: (
   md: 768px,
   lg: 992px,
   // xl: 1200px,
-  // xxl: 1400px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  // xxl: 1400px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 // scss-docs-end grid-breakpoints
@@ -146,7 +146,7 @@ $container-max-widths: (
   md: 720px,
   lg: 869px,
   // xl: 1140px,
-  // xxl: 1320px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  // xxl: 1320px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 // scss-docs-end container-max-widths
 
@@ -238,6 +238,9 @@ $dropdown-item-padding-y: $spacer * 0.5 !default;
 // Buttons + Forms
 $input-btn-padding-y: 0.8125rem !default;
 $input-btn-focus-box-shadow: none !default;
+
+$input-btn-padding-y-sm: 0.469rem !default;
+$input-btn-padding-x-sm: 0.75rem !default;
 
 // Forms
 $input-border-color: $border-color !default;

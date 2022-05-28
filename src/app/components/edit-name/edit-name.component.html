@@ -1,11 +1,12 @@
 <form #validateForm="ngForm" (ngSubmit)="submitForm()" *ngIf="data">
   <div class="mb-4 text-center">
     <div class="text-center">
-      <img [src]="data.photo ? data.photo : 'assets/images/user_default.png'" class="photo-size border rounded-circle"
-        alt="使用者大頭照">
+      <img [src]="data.photo ? data.photo : userDefaultImg" class="photo-size border rounded-circle" alt="使用者大頭照">
     </div>
-    <label class="btn btn-dark px-6 py-1 mt-4 rounded-0"><input type="file" accept=".jpg, .png" name="file"
-        class="d-none" (change)="upload($event)">上傳大頭照</label>
+    <label class="btn btn-dark px-6 py-1 mt-4 rounded-0" [class.disabled]="isUploading"><input type="file"
+        accept=".jpg, .png" name="file" class="d-none" (change)="upload($event)">上傳大頭照<span
+        class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"
+        *ngIf="isUploading"></span></label>
   </div>
   <div class="mb-4">
     <label for="name" class="form-label">{{ formsSchema.name.name }}</label>
@@ -29,6 +30,6 @@
   </ul>
   <div class="d-grid">
     <button class="btn btn-primary my-4" type="submit"
-      [disabled]="validateForm.invalid || this.uploadErrs.length || !isChangeData">送出更新</button>
+      [disabled]="validateForm.invalid || this.uploadErrs.length || isUploading || !isChangeData">送出更新</button>
   </div>
 </form>

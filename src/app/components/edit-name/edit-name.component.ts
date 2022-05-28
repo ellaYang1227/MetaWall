@@ -5,6 +5,7 @@ import { AuthService } from '@services/auth.service';
 import { editName, MemberService } from '@services/member.service';
 import { SwalDefaultService } from '@services/swal-default.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UploadService } from './../../services/upload.service';
 
 let swalToast: any;
 
@@ -14,6 +15,7 @@ let swalToast: any;
   styleUrls: ['./edit-name.component.scss']
 })
 export class EditNameComponent implements OnInit {
+  userDefaultImg = this.authService.userDefaultImg;
   formsSchema = FormsSchema;
   initData: any = {
     photo: '',
@@ -22,7 +24,7 @@ export class EditNameComponent implements OnInit {
   };
 
   data!: editName;
-
+  isUploading = false;
   // 資料是否改變
   isChangeData = false;
   uploadErrs: string[] = [];
@@ -31,6 +33,7 @@ export class EditNameComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private memberService: MemberService,
+    private uploadService: UploadService,
     private swalDefaultService: SwalDefaultService,
     private spinner: NgxSpinnerService
   ) {
@@ -87,9 +90,9 @@ export class EditNameComponent implements OnInit {
 
       const fileReader = new FileReader();
       fileReader.onloadend = () => {
-        this.data.photo = fileReader.result;
+        const photo: any = fileReader.result;
         const image = new Image();
-        image.src = this.data.photo;
+        image.src = photo;
         image.onload = () => {
           const imageWidth = image.width;
           const imageHeight = image.height;
@@ -102,13 +105,28 @@ export class EditNameComponent implements OnInit {
           if (300 > imageWidth) {
             this.uploadErrs.push('解析度寬度至少 300 像素以上，請重新輸入');
           }
+
+          this.uploadImg(file);
         }
       }
 
-      if (!this.uploadErrs.length) {
-        fileReader.readAsDataURL(file);
+      fileReader.readAsDataURL(file);
+    }
+  }
+
+  uploadImg(file: FileList) {
+    if (!this.uploadErrs.length) {
+      this.isUploading = true;
+      this.uploadService.upload(file, 'user').subscribe(res => {
+        if (res.success) {
+          this.data.photo = res.data;
+        } else {
+          this.uploadErrs.push(res.message);
+        }
+
+        this.isUploading = false;
         this.isChangeData = true;
-      }
+      });
     }
   }
 

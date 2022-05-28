@@ -38,7 +38,23 @@ export class PostService extends BaseService {
       }));
   }
 
-  addPost(body: post) {
+  getUserPosts(userId: string, filter: any): Observable<any> {
+    let url = '';
+    for (const key in filter) {
+      if (filter[key]) {
+        url += url ? '&' : '?';
+        url += `${key}=${filter[key]}`;
+      }
+    }
+
+    return this.http.get<any[]>(this.API_ROOT + 'posts/' + userId + url, this.getHeader())
+      .pipe(map(result => this.covertReturn(result)), catchError(error => {
+        this.covertReturn(error.error);
+        return of(false);
+      }));
+  }
+
+  addPost(body: post): Observable<any> {
     return this.http.post<any>(this.API_ROOT + 'posts', body, this.getHeader())
       .pipe(map(result => result), catchError(error => {
         return of(this.covertReturn(error.error));
