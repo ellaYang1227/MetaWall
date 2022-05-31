@@ -16,7 +16,7 @@ export class FilterPostsComponent implements OnInit {
     name: '從新到舊',
     value: ''
   }, {
-    name: '從舊到最',
+    name: '從舊到新',
     value: 'asc'
   }];
 
