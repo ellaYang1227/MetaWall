@@ -2,11 +2,15 @@
     [src]="user.photo ? user.photo : userDefaultImg" class="user-img-size border-end">
   <div class="flex-grow-1 text-truncate d-flex justify-content-between align-items-center px-4">
     <h6 class="mb-0 fw-bold text-truncate me-4">{{ user.name }}<div class="fw-normal" *ngIf="user.trackTotal"><span
-          class="font-balooDa2 me-1">{{ user.trackTotal | number }}</span>人追蹤</div>
-    </h6><button type="button" class="btn py-1 px-5" [ngClass]="isTracked ? 'btn-light' : 'btn-warning'"
-      (click)="toggleTracked()">
-      <ng-template [ngIf]="isTracked">取消</ng-template>追蹤
+          class="font-balooDa2 me-1">{{ user.followers.length | number }}</span>人追蹤</div>
+    </h6><button type="button" class="btn py-1 px-5" *ngIf="currentUserId !== userId; else myself"
+      [ngClass]="isFollowing ? 'btn-light' : 'btn-warning'" (click)="toggleFollow()">
+      <ng-template [ngIf]="isFollowing">取消</ng-template>追蹤
     </button>
+    <ng-template #myself>
+      <button type="button" class="btn btn-danger py-1 px-5" (click)="delPosts()"
+        [disabled]="!posts.length">刪除所有貼文</button>
+    </ng-template>
   </div>
 </div>
 <div class="mt-4">

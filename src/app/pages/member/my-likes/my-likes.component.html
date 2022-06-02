@@ -18,11 +18,12 @@
           </div>
           <div class="col-auto">
             <button class="btn btn-link btn-sm font-NotoSansTC text-decoration-none" type="button"
-              (click)="cancelLike(myLike._id)">
+              (click)="unlike(myLike._id)">
               <fa-icon [icon]="['far', 'thumbs-up']" size="lg" class="d-block text-primary"></fa-icon>
               <strong>取消</strong>
             </button>
-            <a class="btn btn-link btn-sm font-NotoSansTC text-decoration-none" role="button">
+            <a class="btn btn-link btn-sm font-NotoSansTC text-decoration-none" role="button"
+              [routerLink]="'/post/' + myLike._id">
               <fa-icon [icon]="['fas', 'circle-arrow-right']" size="lg" class="d-block"></fa-icon><strong>查看</strong>
             </a>
           </div>

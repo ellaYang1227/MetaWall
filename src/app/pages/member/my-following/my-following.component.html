@@ -7,20 +7,20 @@
 </div>
 <!-- 跟蹤 列表 -->
 <ng-template #notLoading>
-  <ng-container *ngIf="myTracks.length; else noMyTracks">
-    <div class="card mt-4" *ngFor="let myTrack of myTracks">
+  <ng-container *ngIf="myFollowing.length; else noMyFollowing">
+    <div class="card mt-4" *ngFor="let item of myFollowing">
       <div class="card-body p-4">
         <div class="row align-items-end">
           <div class="col text-truncate">
-            <app-item-user-data [user]="myTrack.user" [createdAt]="myTrack.createdAt" createdAtText="發文時間"
+            <app-item-user-data [user]="item.user" [createdAt]="item.createdAt" createdAtText="追蹤時間"
               [userPhotoSize]="40" [noBorder]="true"></app-item-user-data>
           </div>
-          <span class="col-auto fs-7">您已追蹤 {{ getMyTrackDay(myTrack.createdAt) }} 天！</span>
+          <span class="col-auto fs-7">您已追蹤 {{ getFollowDay(item.createdAt) }} 天！</span>
         </div>
       </div>
     </div>
   </ng-container>
-  <ng-template #noMyTracks>
+  <ng-template #noMyFollowing>
     <div class="mt-4">
       <app-no-data text="目前尚無追蹤版主，快去追蹤喜歡的版主吧！"></app-no-data>
     </div>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from '@services/member.service';
+import { PostService } from '@services/post.service';
+import { SwalDefaultService } from '@services/swal-default.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+let swalToast: any;
 @Component({
   selector: 'app-my-likes',
   templateUrl: './my-likes.component.html',
@@ -14,9 +17,12 @@ export class MyLikesComponent implements OnInit {
 
   constructor(
     private memberService: MemberService,
+    private postService: PostService,
+    private swalDefaultService: SwalDefaultService,
     private spinner: NgxSpinnerService
   ) {
     this.spinner.hide();
+    swalToast = this.swalDefaultService.toastDefault;
   }
 
   ngOnInit(): void {
@@ -24,29 +30,25 @@ export class MyLikesComponent implements OnInit {
   }
 
   getMyLikes() {
-    this.myLikes = [{
-      "user": {
-        "_id": "628a43c38c9d619c7bbcbbff",
-        "name": "BootBB111",
-        "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF/wAAGeIJNwAAACJJREFUeJztwTEBAAAAwqD1T20KP6AAAAAAAAAAAAAAAHgZLbQAAWZ0M2QAAAAASUVORK5CYII="
-      },
-      "_id": "628a43c38c9d619c7bbcbbff",
-      "createdAt": "2022-05-24T11:57:09.367Z"
-    }, {
-      "user": {
-        "_id": "628a43c38c9d619c7bbcbbff",
-        "name": "BootBB111",
-        "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF/wAAGeIJNwAAACJJREFUeJztwTEBAAAAwqD1T20KP6AAAAAAAAAAAAAAAHgZLbQAAWZ0M2QAAAAASUVORK5CYII="
-      },
-      "_id": "628a43c38c9d619c7bbcbbff",
-      "createdAt": "2022-05-24T11:57:09.367Z"
-    }];
-
-    setTimeout(() => this.isLoading = false, 1000);
+    this.memberService.getLikeList().subscribe(data => {
+      this.myLikes = data;
+      setTimeout(() => this.isLoading = false, 1000);
+    });
   }
 
-  // 移除貼文
-  cancelLike(id: string) {
-    //console.log(id);
+  // 取消按讚貼文
+  unlike(id: string) {
+    this.postService.postUnlike(id).subscribe(res => {
+      if (res.success) {
+        const findIndex = this.myLikes.findIndex(myLike => myLike._id === id);
+        this.myLikes.splice(findIndex, 1);
+        this.getMyLikes();
+      }
+
+      swalToast.fire({
+        icon: res.success ? 'success' : 'error',
+        title: `取消按讚${res.success ? '成功' : '失敗'}`
+      });
+    });
   }
 }

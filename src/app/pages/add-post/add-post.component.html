@@ -1,5 +1,5 @@
-<app-title [title]="'張貼動態'"></app-title>
-<form #validateForm="ngForm" (ngSubmit)="addPost()">
+<app-title [title]="title"></app-title>
+<form #validateForm="ngForm" (ngSubmit)="addOrEditPost()">
   <div class="card mt-4">
     <div class="card-body p-6">
       <!-- 貼文內容 -->
@@ -21,7 +21,9 @@
       <div class="d-grid gap-2 col-md-9 mx-auto mt-4"
         [ngClass]="validateForm.invalid || uploadErrs.length ? 'mt-4' : 'mt-6'">
         <button class="btn btn-primary" type="submit"
-          [disabled]="validateForm.invalid || uploadErrs.length || isUploading">送出貼文</button>
+          [disabled]="validateForm.invalid || uploadErrs.length || isUploading || isAddPostSpinner">送出貼文<span
+            class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"
+            *ngIf="isAddPostSpinner"></span></button>
       </div>
     </div>
   </div>

@@ -17,45 +17,64 @@
 <ng-template #notLoading>
   <!-- 貼文 -->
   <ng-container *ngIf="posts.length; else noPosts">
-    <div class="card" *ngFor="let post of posts; first as isFirst; trackBy: trackByFn" [class.mt-4]="!isFirst">
+    <div class="card" *ngFor="let post of posts; first as isFirst; index as postIndex; trackBy: trackByFn"
+      [class.mt-4]="!isFirst">
       <div class="card-body">
-        <div class="card-title">
-          <app-item-user-data [user]="post.user" [createdAt]="post.createdAt" [userPhotoSize]="45"></app-item-user-data>
+        <div class="card-title d-flex align-items-start">
+          <div class="text-truncate" [class.me-2]="post.user._id === userId">
+            <app-item-user-data [user]="post.user" [createdAt]="post.createdAt" [userPhotoSize]="45">
+            </app-item-user-data>
+          </div>
+          <div ngbDropdown class="ms-auto" display="dynamic" placement="bottom-end">
+            <button type="button" class="btn btn-outline-dark btn-sm px-1 py-0" id="dropdownPost" ngbDropdownToggle
+              *ngIf="post.user._id === userId">
+              <fa-icon [icon]="['fas', 'ellipsis']"></fa-icon>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownPost">
+              <button ngbDropdownItem [routerLink]="'/etidPost/' + post._id">編輯貼文</button>
+              <button ngbDropdownItem (click)="delPost(postIndex)">刪除貼文</button>
+            </div>
+          </div>
         </div>
         <p class="card-text">{{ post.content }}</p>
         <img [src]="post.image" class="img-fluid rounded border" *ngIf="post.image"
           [alt]="post.user.name + ' - ' + post.content.substr(0, 20) + '...'">
         <!-- 按讚 -->
         <div class="py-4">
-          <button type="button" class="btn btn-link text-decoration-none p-0 border-0"
-            [disabled]="isAlreadyLikes(post.user._id ,post.likes)"
-            [ngClass]="isAlreadyLikes(post.user._id ,post.likes) ? 'text-dark' : 'text-muted'">
+          <button type="button" class="btn btn-link text-decoration-none p-0 border-0" (click)="toggleLike(postIndex)"
+            [ngClass]="isAlreadyLikes(post.likes) ? 'text-dark' : 'text-muted'">
             <fa-icon [icon]="['far', 'thumbs-up']" size="lg" class="me-2"
-              [ngClass]="isAlreadyLikes(post.user._id ,post.likes) ? 'text-primary' : 'text-muted'"></fa-icon><span
+              [ngClass]="isAlreadyLikes(post.likes) ? 'text-primary' : 'text-muted'"></fa-icon><span
               [ngClass]="post.likes.length ? 'font-balooDa2' : 'fw-bold font-helveticaNeue'">{{ post.likes.length ?
               (post.likes.length | number: '1.0-0') : '成為第一個按讚的朋友' }}</span>
           </button>
         </div>
         <!-- 留言 input -->
-        <ng-container *ngIf="false">
-          <div class="d-flex align-items-center"><img [src]="post.user.photo ? post.user.photo : userDefaultImg"
-              class="rounded-circle-size-40 border" [alt]="post.user.name">
-            <div class="input-group input-group-sm ms-2">
-              <input type="text" class="form-control" placeholder="留言..." aria-label="貼文留言" [(ngModel)]="comment"
-                (keyup.enter)="sendComment()">
-              <button type="button" class="btn btn-primary w-25 d-flex justify-content-center align-items-center"
-                (click)="sendComment()" [disabled]="initComment === comment">留言<span
-                  class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"
-                  *ngIf="showSendCommentSpinner"></span></button>
+        <div class="d-flex align-items-center"><img [src]="post.user.photo ? post.user.photo : userDefaultImg"
+            class="rounded-circle-size-40 border" [alt]="post.user.name">
+          <div class="input-group input-group-sm ms-2">
+            <input type="text" class="form-control" placeholder="留言..." aria-label="貼文留言" [formControl]="comment"
+              (keyup.enter)="sendComment(postIndex)">
+            <button type="button" class="btn btn-primary w-25 d-flex justify-content-center align-items-center"
+              (click)="sendComment(postIndex)" [disabled]="showSendCommentSpinner">留言<span
+                class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"
+                *ngIf="showSendCommentSpinner"></span></button>
+          </div>
+        </div>
+        <!-- 留言 list -->
+        <div class="bg-light rounded p-4 mt-4" *ngFor="let comment of post.comments; index as commentIdnex">
+          <div class="d-flex align-items-start">
+            <div class="text-truncate">
+              <app-item-user-data [user]="comment.user" [createdAt]="comment.createdAt" [userPhotoSize]="40">
+              </app-item-user-data>
             </div>
+            <button type="button" class="btn btn-outline-dark btn-sm px-1 py-0 ms-auto"
+              *ngIf="comment.user._id === userId" (click)="delComment(postIndex, commentIdnex)">
+              <fa-icon [icon]="['far', 'trash-can']"></fa-icon>
+            </button>
           </div>
-          <!-- 留言 list -->
-          <div class="bg-light rounded p-4 mt-4" *ngFor="let comment of post.comments">
-            <app-item-user-data [user]="comment.user" [createdAt]="comment.createdAt" [userPhotoSize]="40">
-            </app-item-user-data>
-            <p class="ps-4 mb-0 comment-margin-left">{{ comment.content }}</p>
-          </div>
-        </ng-container>
+          <p class="ps-4 mb-0 comment-margin-left">{{ comment.comment }}</p>
+        </div>
       </div>
     </div>
   </ng-container>

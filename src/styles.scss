@@ -149,9 +149,35 @@ label.form-check-label {
       > div.dropdown-menu {
         display: block;
         inset: 0px 0px auto auto;
-        margin: 0px;
+        margin: 0px !important;
         transform: translate(0px, 34px);
       }
+    }
+  }
+}
+
+/*
+* ==========================================================================
+* ng-bootstrap
+* ==========================================================================
+*/
+
+// NgbDropdown
+.dropdown {
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 0.25rem !important;
+    box-shadow: 5px 5px 0 0 $white, 5px 5px 0 2px $border-color;
+  }
+
+  .dropdown-item {
+    + .dropdown-item {
+      border-top: $border-width solid $border-color;
     }
   }
 }

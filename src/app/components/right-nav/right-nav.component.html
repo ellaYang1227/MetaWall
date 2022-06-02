@@ -3,7 +3,7 @@
   <nav class="d-none d-md-block nav flex-column bg-white px-5 py-6 border position-sticky" #desktopNav
     [style.top.px]="desktopNavOffsetTop">
     <a class="btn btn-primary w-100" [routerLink]="getAddPostLink()" routerLinkActive="disabled">張貼動態</a>
-    <a class="nav-link px-2 pt-5 pb-0 d-flex align-items-center" [href]="'user' + user.id">
+    <a class="nav-link px-2 pt-5 pb-0 d-flex align-items-center" [href]="'user/' + user.id">
       <img [src]="user.photo" class="rounded-circle-size-50 border me-4"><strong>{{ user.name }}</strong>
     </a>
     <ng-template ngFor let-nav [ngForOf]="navs">

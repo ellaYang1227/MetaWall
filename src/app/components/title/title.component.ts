@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
 import { Company } from '@data/company';
 @Component({
   selector: 'app-title',
@@ -12,20 +11,15 @@ export class TitleComponent implements OnInit {
   @Input() title!: string;
 
   constructor(
-    private router: Router,
     private titleServer: Title
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          this.titleServer.setTitle(`${this.title} | ${Company.name}`);
-          this.mainTitle = this.title.split(' - ')[0];
-        }, 0);
-      }
-    });
   }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(): void {
+    this.titleServer.setTitle(`${this.title} | ${Company.name}`);
+    this.mainTitle = this.title.split(' - ')[0];
+  }
 }

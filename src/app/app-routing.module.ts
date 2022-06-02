@@ -9,11 +9,19 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('@pages/index/index.module').then(mod => mod.IndexModule)
   }, {
+    path: 'post',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@pages/post/post.module').then(mod => mod.PostModule)
+  }, {
     path: 'addPost',
     canActivate: [AuthGuard],
     loadChildren: () => import('@pages/add-post/add-post.module').then(mod => mod.AddPostModule)
   }, {
-    path: 'user/:id',
+    path: 'etidPost/:id',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@pages/add-post/add-post.module').then(mod => mod.AddPostModule)
+  }, {
+    path: 'user',
     canActivate: [AuthGuard],
     loadChildren: () => import('@pages/user-posts/user-posts.module').then(mod => mod.UserPostsModule)
   }, {
