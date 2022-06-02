@@ -7,7 +7,7 @@ import { BaseService } from './base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService extends BaseService {
+export class CommentService extends BaseService {
 
   constructor(
     private http: HttpClient,
@@ -16,9 +16,9 @@ export class UploadService extends BaseService {
     super(spinner);
   }
 
-  // 1.上傳圖片
-  upload(body: FileList, unit: 'user' | 'post' = 'post'): Observable<any> {
-    return this.http.post<any>(`${this.API_ROOT}upload?unit=${unit}`, this.covertFormData({ file: body }), this.getHeader())
+  // (額外)刪除一則貼文的留言
+  delComment(commentID: string): Observable<any> {
+    return this.http.delete<any>(`${this.API_ROOT}comments/${commentID}`, this.getHeader())
       .pipe(map(result => result), catchError(error => {
         return of(this.covertReturn(error.error));
       }));

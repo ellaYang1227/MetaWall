@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberComponent } from './member.component';
+import { MyFollowingComponent } from './my-following/my-following.component';
 import { MyLikesComponent } from './my-likes/my-likes.component';
-import { MyTracksComponent } from './my-tracks/my-tracks.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,8 +15,8 @@ const routes: Routes = [{
     path: 'myLikes',
     component: MyLikesComponent
   }, {
-    path: 'myTracks',
-    component: MyTracksComponent
+    path: 'myFollowing',
+    component: MyFollowingComponent
   }]
 }];
 

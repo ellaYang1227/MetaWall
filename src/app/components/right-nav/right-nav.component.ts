@@ -14,7 +14,7 @@ export class RightNavComponent implements OnInit {
   }, {
     name: '追蹤名單',
     icon: ['far', 'bell'],
-    link: '/member/myTracks'
+    link: '/member/myFollowing'
   }, {
     name: '我按讚的文章',
     icon: ['far', 'thumbs-up'],

@@ -4,21 +4,3 @@
   height: $header-height;
   z-index: 1030;
 }
-
-.ngbDropdown-user {
-  .userIcon {
-    &::after {
-      display: none;
-    }
-  }
-
-  .dropdown-menu {
-    box-shadow: 5px 5px 0 0 $white, 5px 5px 0 2px $border-color;
-  }
-
-  .dropdown-item {
-    + .dropdown-item {
-      border-top: $border-width solid $border-color;
-    }
-  }
-}

@@ -14,8 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberRoutingModule } from './member-routing.module';
 import { MemberComponent } from './member.component';
+import { MyFollowingComponent } from './my-following/my-following.component';
 import { MyLikesComponent } from './my-likes/my-likes.component';
-import { MyTracksComponent } from './my-tracks/my-tracks.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { MyTracksComponent } from './my-tracks/my-tracks.component';
     UpdatePasswordComponent,
     EditNameComponent,
     MyLikesComponent,
-    MyTracksComponent
+    MyFollowingComponent
   ],
   imports: [
     CommonModule,

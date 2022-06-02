@@ -4,8 +4,6 @@
   <h4 class="h6 fw-bold mb-0 ms-4 text-truncate"><a href="#" class="link-dark" [routerLink]="'/user/' + user._id"
       routerLinkActive="active">{{ user.name }}</a><small class="fs-7 fw-normal text-muted d-block font-balooDa2"
       [class.fs-6]="createdAtText"><span *ngIf="createdAtText" class="font-helveticaNeue">{{ createdAtText }}：</span>{{
-      createdAt | date: 'yyyy/MM/dd HH:mm:ss'
-      }}
-    </small>
+      createdAt | date: 'yyyy/MM/dd HH:mm:ss' }}</small>
   </h4>
 </div>
