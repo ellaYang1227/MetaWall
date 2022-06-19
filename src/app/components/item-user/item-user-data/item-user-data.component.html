@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center" *ngIf="user"><img [src]="user.photo ? user.photo : userDefaultImg" class="border"
     [alt]="user.name" [class.rounded-circle-size-45]="userPhotoSize === 45"
     [class.rounded-circle-size-40]="userPhotoSize === 40" [class.border-0]="noBorder">
-  <h4 class="h6 fw-bold mb-0 ms-4 text-truncate"><a [href]="'/user/' + user._id" class="link-dark"
+  <h4 class="h6 fw-bold mb-0 ms-4 text-truncate"><a [href]="'user/' + user._id" class="link-dark"
       [class.active]="isActiveLink">{{ user.name
       }}</a><small class="fs-7 fw-normal text-muted d-block font-balooDa2" [class.fs-6]="createdAtText"><span
         *ngIf="createdAtText" class="font-helveticaNeue">{{ createdAtText }}：</span>{{
